@@ -9,8 +9,6 @@
 import StORM
 import MySQL
 
-public var connect: MySQLConnect?
-
 
 open class MySQLStORM: StORM, StORMProtocol {
 	open var connection = MySQLConnect()
@@ -63,11 +61,11 @@ open class MySQLStORM: StORM, StORMProtocol {
 //	@discardableResult
 	func exec(_ statement: String, params: [String], isInsert: Bool = false) throws {
 		let thisConnection = MySQLConnect(
-			host:		connect!.credentials.host,
-			username:	connect!.credentials.username,
-			password:	connect!.credentials.password,
-			database:	connect!.database,
-			port:		connect!.credentials.port
+			host:		connection.credentials.host,
+			username:	connection.credentials.username,
+			password:	connection.credentials.password,
+			database:	connection.database,
+			port:		connection.credentials.port
 		)
 		thisConnection.open()
 		defer { thisConnection.server.close() }
@@ -108,11 +106,11 @@ open class MySQLStORM: StORM, StORMProtocol {
 	@discardableResult
 	func execRows(_ statement: String, params: [String]) throws -> [StORMRow] {
 		let thisConnection = MySQLConnect(
-			host:		connect!.credentials.host,
-			username:	connect!.credentials.username,
-			password:	connect!.credentials.password,
-			database:	connect!.database,
-			port:		connect!.credentials.port
+			host:		connection.credentials.host,
+			username:	connection.credentials.username,
+			password:	connection.credentials.password,
+			database:	connection.database,
+			port:		connection.credentials.port
 		)
 
 		thisConnection.open()
